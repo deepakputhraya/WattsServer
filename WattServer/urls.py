@@ -17,10 +17,15 @@ from django.conf.urls import patterns,include, url
 from django.contrib import admin
 from django.conf import settings
 from Team.views import teamMemberAPI
+from Blog.views import postAPI,postAPIDetails
 from Animal.views import animalAPI,adoptAPI,storyAPI
 
 urlpatterns = patterns('',
+    url('^markdown/', include( 'django_markdown.urls')),
+    url(r'^tinymce/', include('tinymce.urls')),
     url(r'^admin/', include(admin.site.urls)),
+    url(r'^api/post/(?P<pk>[0-9]+)/$', postAPIDetails), #API TO ACCESS ALL POSTS. Only GET request Works
+    url(r'^api/post/$', postAPI), #API TO ACCESS ALL POSTS. Only GET request Works
     url(r'^api/team/$', teamMemberAPI), #API TO ACCESS TEAM MEMBERS. Only GET request Works
     url(r'^api/animal/$', animalAPI), #API TO ACCESS All ANIMALS MEMBERS. Only GET request Works
     url(r'^api/adopt/$', adoptAPI), #API TO ACCESS ADOPTABLE ANIMALS MEMBERS. Only GET request Works
